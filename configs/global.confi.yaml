@@ -1,0 +1,40 @@
+http:
+  host: 0.0.0.0
+  port: 5000
+
+modbus_client:
+  tcp:
+    enable: True
+    host: 192.168.1.150
+    port: 5000
+    timeout: 4
+  serial:
+    enable: True
+    port: /dev/com2
+    baudrate: 115200
+    timeout: 4
+    data_bits: 8
+    parity: N
+    stop_bits: 1
+
+snmp:
+  enable: True
+  host: 0.0.0.0
+  port: 1161
+  community: public
+  version: 2c
+
+modbus_server:
+  tcp:
+    enable: False
+    host: 0.0.0.0
+    port: 5020
+    timeout: 4
+  serial:
+    enable: True
+    port: /dev/com4
+    baudrate: 115200
+    timeout: 4
+    data_bits: 8
+    parity: N
+    stop_bits: 1

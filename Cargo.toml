@@ -1,0 +1,39 @@
+[package]
+name = "cdu_workbench_rust"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "Industrial Control System Workbench"
+license = "MIT"
+
+[dependencies]
+# Web框架(替代Quart)
+actix-web = "4.4.0"
+# 异步运行时
+tokio = { version = "1.32.0", features = ["full"] }
+# 配置管理
+serde = { version = "1.0.190", features = ["derive"] }
+serde_json = "1.0.108"
+serde_yaml = "0.9.21"
+# 日志系统
+log = "0.4.20"
+env_logger = "0.10.1"
+# Modbus协议支持
+tokio-modbus = { version = "*", default-features = false, features = [
+    "rtu-sync",
+    "tcp-sync",
+    "rtu-server",
+    "tcp-server",
+    "sync",
+] }
+# SNMP协议支持
+snmp = "0.2.2"
+# 事件发射器(替代原Python的Emiter)
+eventuals = "0.4.0"
+# 时间处理
+time = "0.3.30"
+# 线程和并发
+crossbeam = "0.8.2"
+# 命令行参数
+clap = { version = "4.4.6", features = ["derive"] }
+actix-files = "0.6.9"
