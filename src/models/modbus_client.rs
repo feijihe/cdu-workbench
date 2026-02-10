@@ -2,31 +2,38 @@ use tokio_modbus::{
     prelude::{sync, SyncReader},
     ExceptionCode, Slave,
 };
+// use serialport::SerialPortBuilder;
 
-// let mut client = SerialClient::new("/dev/ttyUSB0", 1);
-
-pub fn main() {
-    let socket_addr = "192.168.1.150:5000".parse().unwrap();
-    let mut ctx: sync::Context = sync::tcp::connect_slave(socket_addr, Slave(1)).unwrap();
-    // let buff = ctx.read_holding_registers(0, 10);
-    // match buff {
-    //     Ok(res) => println!("====={:?}", res),
-    //     Err(e) => println!("====={:?}", e),
-    // }
-    // println!("====={:?}", buff);
+pub struct ModbusTcpClient {
+    pub client: sync::Context,
 }
 
-pub struct ModbusClient {
+pub struct ModbusSerialClient {
     client: sync::Context,
 }
 
-impl ModbusClient {
+impl ModbusTcpClient {
+    #[allow(dead_code)]
     pub fn new(ip: &str, port: u16) -> Self {
         let socket_addr = format!("{}:{}", ip, port).parse().unwrap();
         let ctx: sync::Context = sync::tcp::connect_slave(socket_addr, Slave(1)).unwrap();
         Self { client: ctx }
     }
-    pub fn connected(&self) -> bool {
-        true
+    #[allow(dead_code)]
+    pub fn get_context(&mut self) -> &mut sync::Context {
+        &mut self.client
+    }
+}
+
+impl ModbusSerialClient {
+    #[allow(dead_code)]
+    pub fn new(port: &str, baud_rate: u32) -> Self {
+        let builder = serialport::new(port, baud_rate);
+        let ctx: sync::Context = sync::rtu::connect_slave(&builder, Slave(1)).unwrap();
+        Self { client: ctx }
+    }
+    #[allow(dead_code)]
+    pub fn get_context(&mut self) -> &mut sync::Context {
+        &mut self.client
     }
 }

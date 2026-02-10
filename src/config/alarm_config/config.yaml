@@ -1,0 +1,201 @@
+Linkages:
+- address: 2637
+  name: Pump1 dry running
+  sensors:
+  - comparator: '>'
+    key: Speed
+    plugin: Pumps
+    sensor: Pump1
+    value: 100
+  - comparator: <=
+    plugin: Flows
+    sensor: F2
+    value: 0
+- address: 2638
+  name: Pump2 dry running
+  sensors:
+  - comparator: '>'
+    key: Speed
+    plugin: Pumps
+    sensor: Pump2
+    value: 1000
+  - comparator: <=
+    plugin: Flows
+    sensor: F2
+    value: 0
+- address: 2639
+  name: Valve1 dry running
+  sensors:
+  - comparator: '>'
+    key: Voltage
+    plugin: Valves
+    sensor: Valve1
+    value: 5
+  - comparator: <=
+    plugin: Flows
+    sensor: F2
+    value: 0
+single:
+  Cv:
+  - address: 2633
+    comparator: >
+    decimal_places: 1
+    value: 15
+  F1:
+  - address: 2600
+    comparator: '>'
+    decimal_places: 1
+    value: 20
+  - address: 2601
+    comparator: <
+    decimal_places: 1
+    value: 320
+  F2:
+  - address: 2602
+    comparator: '>'
+    decimal_places: 1
+    value: 10
+  - address: 2603
+    comparator: <
+    decimal_places: 1
+    value: 320
+  LE1:
+  - address: 2634
+    comparator: '!='
+    level: error
+    value: 0
+  LI1:
+  - address: 2635
+    comparator: '!='
+    value: 0
+  P1:
+  - address: 2608
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2609
+    comparator: <
+    decimal_places: 1
+    value: 150
+  P1-P2:
+  - address: 2629
+    comparator: <
+    decimal_places: 1
+    value: 150
+  P2:
+  - address: 2610
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2611
+    comparator: <
+    decimal_places: 1
+    value: 150
+  P3:
+  - address: 2616
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2617
+    comparator: <
+    decimal_places: 1
+    value: 105
+  P4:
+  - address: 2618
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2619
+    comparator: <
+    decimal_places: 1
+    value: 105
+  P4-P3:
+  - address: 2630
+    comparator: '>'
+    decimal_places: 1
+    value: 3.5
+  - address: 2631
+    comparator: <
+    decimal_places: 1
+    value: 64
+  P5:
+  - address: 2620
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2621
+    comparator: <
+    decimal_places: 1
+    value: 48
+  PH1:
+  - address: 2622
+    comparator: '>'
+    decimal_places: 1
+    value: 8
+  - address: 2623
+    comparator: <
+    decimal_places: 1
+    value: 10.5
+  Pump1:
+  - address: 2624
+    comparator: '>'
+    decimal_places: 1
+    key: Temperature
+    value: 0
+  - address: 2625
+    comparator: <
+    decimal_places: 1
+    key: Temperature
+    value: 70
+  Pump2:
+  - address: 2626
+    comparator: '>'
+    decimal_places: 1
+    key: Temperature
+    value: 0
+  - address: 2627
+    comparator: <
+    decimal_places: 1
+    key: Temperature
+    value: 70
+  T1:
+  - address: 2604
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2605
+    comparator: <
+    decimal_places: 1
+    value: 45
+  T2:
+  - address: 2606
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2607
+    comparator: <
+    decimal_places: 1
+    value: 60
+  T3:
+  - address: 2612
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2613
+    comparator: <
+    decimal_places: 1
+    value: 65
+  T4:
+  - address: 2614
+    comparator: '>'
+    decimal_places: 1
+    value: 0
+  - address: 2615
+    comparator: <
+    decimal_places: 1
+    value: 45
+  T4-DewPoint:
+  - address: 2636
+    comparator: >
+    decimal_places: 1
+    value: 5

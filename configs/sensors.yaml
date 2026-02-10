@@ -1,0 +1,365 @@
+---
+sensor_plugins:
+  - name: Valves
+    type: valve
+    can_write: True
+    defaults:
+      DutyCycle:
+        read_method: read_holding_registers
+        write_method: write_registers
+        formula: ($DutyCycle - 2000) / 80
+        write_formula: $value * 80 + 2000
+        batch_address: 20
+        unit: '%'
+        min: 0
+        max: 100
+      Voltage:
+        read_method: read_holding_registers
+        unit: V
+        formula: $Voltage / 1000
+        decimal_places: 3
+    sensors:
+      - name: Valve1
+        attrs:
+          DutyCycle:
+            address: 3427
+          Voltage:
+            address: 3423
+  - name: Pumps
+    type: pump
+    can_write: True
+    defaults:
+      DutyCycle:
+        read_method: read_holding_registers
+        write_method: write_registers
+        batch_address: 30
+        unit: '%'
+        formula: $DutyCycle / 60
+        write_formula: $value * 60
+        min: 0
+        max: 100
+      Speed:
+        read_method: read_holding_registers
+        unit: RPM
+      Current:
+        read_method: read_holding_registers
+        unit: A
+        decimal_places: 2
+        formula: $Current / 1000
+      Temperature:
+        read_method: read_holding_registers
+        unit: °C
+        decimal_places: 1
+      Voltage:
+        read_method: read_holding_registers
+        unit: V
+        formula: $Voltage / 10
+        decimal_places: 3
+    sensors:
+      - name: Pump1
+        attrs:
+          DutyCycle:
+            address: 2192
+          Speed:
+            address: 2080
+          Current:
+            address: 2081
+          Temperature:
+            address: 2113
+          Voltage:
+            address: 2112
+      - name: Pump2
+        attrs:
+          DutyCycle:
+            address: 2193
+          Speed:
+            address: 2082
+          Current:
+            address: 2083
+          Temperature:
+            address: 2117
+          Voltage:
+            address: 2116
+  - name: Flows
+    type: flow
+    defaults:
+      value:
+        read_method: read_holding_registers
+        formula: ($value - 4000) * 18 / 960
+        unit: L/min
+        min: 0
+        max: 1000
+        decimal_places: 2
+    sensors:
+      - name: F1
+        attrs:
+          value:
+            address: 3408
+      - name: F2
+        attrs:
+          value:
+            address: 3409
+      - name: F2'
+        attrs:
+          value:
+            address: 3410
+            formula: ($value - 4000) / 1000 * 500 / 16
+  - name: Pressures
+    defaults:
+      value:
+        read_method: read_holding_registers
+        formula: ($value - 4000) * 0.15 / 16
+        unit: PSI
+        min: 0
+        max: 1000
+        decimal_places: 2
+    sensors:
+      - name: P1
+        attrs:
+          value:
+            address: 3392
+      - name: P1'
+        attrs:
+          value:
+            address: 3393
+      - name: P2
+        attrs:
+          value:
+            address: 3394
+      - name: P2'
+        attrs:
+          value:
+            address: 3395
+      - name: P3
+        attrs:
+          value:
+            address: 3396
+      - name: P3'
+        attrs:
+          value:
+            address: 3397
+      - name: P4
+        attrs:
+          value:
+            address: 3398
+      - name: P4'
+        attrs:
+          value:
+            address: 3399
+      - name: P5
+        attrs:
+          value:
+            address: 3400
+      - name: P5'
+        attrs:
+          value:
+            address: 3401
+      - name: DP1
+        attrs:
+          value:
+            address: 3405
+      - name: DP1'
+        attrs:
+          value:
+            address: 3406
+    group_list:
+      - devices:
+          - P1
+          - P1'
+        name: P1
+      - devices:
+          - P2
+          - P2'
+        name: P2
+      - devices:
+          - P3
+          - P3'
+        name: P3
+      - devices:
+          - P4
+          - P4'
+        name: P4
+      - devices:
+          - P5
+          - P5'
+        name: P5
+      - devices:
+          - DP1
+          - DP1'
+        name: DP1
+  - name: Temperatures
+    defaults:
+      value:
+        read_method: read_holding_registers
+        unit: '℃'
+        min: -40
+        max: 80
+        formula: $value / 10
+        decimal_places: 1
+    sensors:
+      - name: T1
+        attrs:
+          value: 3328
+      - name: T1'
+        attrs:
+          value:
+            address: 3329
+      - name: T2
+        attrs:
+          value:
+            address: 3330
+      - name: T2'
+        attrs:
+          value:
+            address: 3331
+      - name: T3
+        attrs:
+          value:
+            address: 3332
+      - name: T3'
+        attrs:
+          value:
+            address: 3333
+      - name: T4
+        attrs:
+          value:
+            address: 3334
+      - name: T4'
+        attrs:
+          value:
+            address: 3335
+      - name: env
+        attrs:
+          value:
+            address: 3376
+    group_list:
+      - devices:
+          - T1
+          - T1'
+        name: T1
+      - devices:
+          - T2
+          - T2'
+        name: T2
+      - devices:
+          - T3
+          - T3'
+        name: T3
+      - devices:
+          - T4
+          - T4'
+        name: T4
+  - name: PHs
+    type: ph
+    defaults:
+      value:
+        read_method: read_holding_registers
+        formula: ($value - 4000) / 1000 * 14 / 16
+        unit: pH
+        min: 0
+        max: 14
+        decimal_places: 1
+    sensors:
+      - name: PH1
+        attrs:
+          value:
+            address: 3413
+  - name: PHTs
+    defaults:
+      Temperature:
+        read_method: read_holding_registers
+        formula: $Temperature / 100
+        unit: '℃'
+        min: -40
+        max: 80
+        decimal_places: 1
+      Humidity:
+        read_method: read_holding_registers
+        formula: $Humidity / 100
+        unit: '%'
+        min: 0
+        max: 100
+        decimal_places: 1
+      DewPoint:
+        read_method: read_holding_registers
+        formula: $Temperature / 100 - (10000 - $Humidity) / 500
+        unit: '℃'
+        min: -40
+        max: 80
+        decimal_places: 1
+    sensors:
+      - name: PHT1
+        attrs:
+          Temperature:
+            address: 3344
+          Humidity:
+            address: 3345
+  - name: Leakages
+    defaults:
+      value:
+        read_method: read_coils
+        unit: ''
+    sensors:
+      - name: LE1
+        attrs:
+          value:
+            address: 10
+  - name: Liquids
+    defaults:
+      value:
+        read_method: read_coils
+        unit: ''
+    sensors:
+      - name: Li1
+        attrs:
+          value:
+            address: 6
+
+computed_sensors:
+  - name: T4-T1
+    label: Approach Temperature
+    decimal_places: 1
+    unit: ℃
+    address: 1601
+    expression: Temperatures.T4.value - Temperatures.T1.value
+  - name: CAP
+    label: Cooling Capacity
+    decimal_places: 1
+    address: 1602
+    unit: kW
+    expression: (Temperatures.T3.value - Temperatures.T4.value) * Flows.F2.value * 4.2 / 60
+  - name: P4-P3
+    label: Differential Pressure
+    decimal_places: 1
+    unit: PSI
+    address: 1603
+    expression: Pressures.P4.value - Pressures.P3.value
+  - name: F2
+    label: Total Flow
+    decimal_places: 1
+    address: 1604
+    expression: Flows.F2.value
+  - name: DP1
+    label: P4-P5'
+    decimal_places: 1
+    address: 1605
+    unit: PSI
+    expression: Pressures.P4.value - Pressures.P5''.value
+  - name: Cv
+    label: Cv
+    decimal_places: 1
+    address: 1606
+    unit: m³/h
+    expression: Flows.F2.value * 0.2642 / ((Pressures.P4.value - Pressures.DP1.value) ** 0.5)
+  - name: P1-P2
+    label: P1-P2
+    decimal_places: 1
+    address: 1607
+    unit: PST
+    expression: Pressures.P1.value - Pressures.P2.value
+  - name: T4-DewPoint
+    label: T4-DewPoint
+    decimal_places: 1
+    address: 1608
+    unit: ℃
+    expression: Temperatures.T4.value - PHTs.PHT1.DewPoint
